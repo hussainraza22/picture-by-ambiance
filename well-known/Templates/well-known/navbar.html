@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="well-known\js\main.js"></script>
+    <script>
+        function includeHTML() {
+          var z, i, elmnt, file, xhttp;
+          /* Loop through a collection of all HTML elements: */
+          z = document.getElementsByTagName("*");
+          for (i = 0; i < z.length; i++) {
+            elmnt = z[i];
+            /*search for elements with a certain atrribute:*/
+            file = elmnt.getAttribute("w3-include-html");
+            if (file) {
+              /* Make an HTTP request using the attribute value as the file name: */
+              xhttp = new XMLHttpRequest();
+              xhttp.onreadystatechange = function() {
+                if (this.readyState == 4) {
+                  if (this.status == 200) {elmnt.innerHTML = this.responseText;}
+                  if (this.status == 404) {elmnt.innerHTML = "Page not found.";}
+                  /* Remove the attribute, and call this function once more: */
+                  elmnt.removeAttribute("w3-include-html");
+                  includeHTML();
+                }
+              }
+              xhttp.open("GET", file, true);
+              xhttp.send();
+              /* Exit the function: */
+              return;
+            }
+          }
+        }
+        </script>
+</head>
+
+<body>
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <div class="nav-collapse nav-collapse_ collapse">
+
+                <ul class="sf-menu">
+                    <li class="active"><a href="index.html"><span>Home</span></a></li>
+                    <li><a href="index-1.html"><span>Portfolio</span></a></li>
+                    <li><a href="index-2.html"><span>About Us</span></a></li>
+                    <li><a href="index-3.html"><span>Photographics</span></a></li>
+                    <li><a href="index_video1.html"><span>Video</span></a></li>
+                    <li><a href="index-4.html"><span>Packages</span></a></li>
+                    <li class="last"><a href="index-5.html"><span>Get in Touch</span></a></li>
+                </ul>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script>
+        includeHTML();
+    </script>
+
+</body>
+
+</html>
